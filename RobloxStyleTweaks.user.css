@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Style Tweaks
-@version        0.5.0
+@version        0.6.0
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -9,7 +9,19 @@
 @license        MIT
 @preprocessor   stylus
 
-@var select theme "Theme" ["defaultDark:Default Dark", "defaultLight:Default Light", "darker:Darker", "amoled:AMOLED", "robloxDark:Roblox Dark", "robloxLight:Roblox Light", "off:Off"]
+@var select theme "Theme" [
+	"defaultDark:Default Dark",
+	"defaultLight:Default Light",
+	"darker:Darker",
+	"amoled:AMOLED",
+	"robloxDark:Roblox Dark",
+	"robloxLight:Roblox Light",
+	"oldDark:Old Default Dark",
+	"oldDarker:Old Darker",
+	"oldRobloxDark:Roblox Dark (Pre-2025)",
+	"oldRobloxLight:Roblox Light (Pre-2025)",
+	"off:Off",
+]
 @var number hue "Theme Hue (1-360)" [210, 0, 360, 1]
 @var number saturation "Theme Saturation (0-100%)" [3, 0, 100, 1]
 
@@ -20,29 +32,33 @@
 
 @var checkbox featuredVignette "Vignette on Featured Games" 1
 @var checkbox improvements "Various Improvements" 1
+@var checkbox catalogimprovements "New Marketplace Improvements" 1
 @var checkbox footerLinks "Remove Footer Links" 1
 ==/UserStyle== */
 
 @-moz-document domain("www.roblox.com"), domain("web.roblox.com") {
 	/* Variables */
-	isLight = (theme == defaultLight || theme == robloxLight)
+	isLight = (theme == defaultLight || theme == robloxLight || theme == oldLight || theme == oldRobloxLight)
+	isRoblox = (theme == robloxDark || theme == robloxLight || theme == oldRobloxDark || theme == oldRobloxLight)
 
 	/* Themes */
 	:root, .dark-theme, .light-theme {
+		/* Default Dark */
 		if theme == defaultDark {
-			--background-color: hsl(hue, saturation, 15%);
-			--navigation-color: hsl(hue, saturation, 10%);
+			--background-color: hsl(hue, saturation, 8%);
+			--navigation-color: hsl(hue, saturation, 6%);
 			--header-color: var(--navigation-color);
-			--content-color: hsl(hue, saturation, 23%);
-			--secondary-content-color: hsl(hue, saturation, 12%);
-			--input-color: hsl(hue, saturation, 4%);
-			--input-border-color: hsl(hue, saturation, 21%);
-			--thumbnail-color: hsl(hue, saturation, 30%);
+			--content-color: hsl(hue, saturation, 17%);
+			--secondary-content-color: hsl(hue, saturation, 9%);
+			--input-color: hsl(hue, saturation, 3%);
+			--input-border-color: hsl(hue, saturation, 14%);
+			--thumbnail-color: hsl(hue, saturation, 14%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(hue, saturation, 45%);
-			--highlighter-color: hsl(hue, saturation, 55%);
+			--highlight-color: hsl(hue, saturation, 28%);
+			--highlighter-color: hsl(hue, saturation, 38%);
 			--primary-text-color: hsl(hue, saturation, 100%);
-			--secondary-text-color: hsl(hue, saturation, 75%);
+			--secondary-text-color: hsl(hue, saturation, 78%);
+		/* Default Light */
 		} else if theme == defaultLight {
 			--background-color: hsl(hue, saturation, 95%);
 			--navigation-color: hsl(hue, saturation, 85%);
@@ -57,7 +73,69 @@
 			--highlighter-color: hsl(hue, saturation, 80%);
 			--primary-text-color: hsl(hue, saturation, 15%);
 			--secondary-text-color: hsl(hue, saturation, 38%);
+		/* Darker */
 		} else if theme == darker {
+			--background-color: hsl(hue, saturation, 6%);
+			--navigation-color: hsl(hue, saturation, 4%);
+			--header-color: var(--navigation-color);
+			--content-color: hsl(hue, saturation, 15%);
+			--secondary-content-color: hsl(hue, saturation, 9%);
+			--input-color: hsl(hue, saturation, 3%);
+			--input-border-color: hsl(hue, saturation, 12%);
+			--thumbnail-color: hsl(hue, saturation, 12%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(hue, saturation, 28%);
+			--highlighter-color: hsl(hue, saturation, 38%);
+			--primary-text-color: hsl(hue, saturation, 100%);
+			--secondary-text-color: hsl(hue, saturation, 73%);
+		/* AMOLED */
+		} else if theme == amoled {
+			--background-color: black;
+			--navigation-color: hsl(hue, saturation, 2%);
+			--header-color: var(--navigation-color);
+			--content-color: hsl(hue, saturation, 9%);
+			--secondary-content-color: hsl(hue, saturation, 6%);
+			--input-color: hsl(hue, saturation, 2%);
+			--input-border-color: hsl(hue, saturation, 17%);
+			--thumbnail-color: hsl(hue, saturation, 7%);
+			--item-thumbnail-color: var(--thumbnail-color);
+			--highlight-color: hsl(hue, saturation, 25%);
+			--highlighter-color: hsl(hue, saturation, 34%);
+			--primary-text-color: hsl(hue, saturation, 100%);
+			--secondary-text-color: hsl(hue, saturation, 70%);
+		/* Roblox Dark */
+		} else if theme == robloxDark {
+			--background-color: #121215;
+			--navigation-color: #191a1f;
+			--header-color: var(--navigation-color);
+			--content-color: #272930;
+			--secondary-content-color: #1f2026;
+			--input-color: rgba(208,217,251,.08);
+			--input-border-color: hsla(0,0%,100%,.1);
+			--thumbnail-color: #d4d4d4;
+			--item-thumbnail-color: rgba(208,217,251,.12);
+			--highlight-color: hsla(0,0%,100%,.3);
+			--highlighter-color: hsla(0,0%,100%,.45);
+			--primary-text-color: #f7f7f8;
+			--secondary-text-color: #d5d7dd;
+		/* Roblox Light */
+		} else if theme == robloxLight {
+			--background-color: #fff;
+			--navigation-color: #f7f7f8;
+			--header-color: var(--navigation-color);
+			--content-color: #f7f7f8;
+			--secondary-content-color: #e3e3e3;
+			--input-color: rgba(27,37,75,.08);
+			--input-border-color: rgba(0,0,0,.1);
+			--thumbnail-color: #d4d4d4;
+			--item-thumbnail-color: rgba(27,37,75,.12);
+			--highlight-color: rgba(0,0,0,.3);
+			--highlighter-color: rgba(0,0,0,.45);
+			--primary-text-color: #202227;
+			--secondary-text-color: #494d5a;
+		/** Old Themes **/
+		/* Old Darker */
+		} else if theme == oldDarker {
 			--background-color: hsl(hue, saturation, 10%);
 			--navigation-color: hsl(hue, saturation, 6%);
 			--header-color: var(--navigation-color);
@@ -71,21 +149,23 @@
 			--highlighter-color: hsl(hue, saturation, 42%);
 			--primary-text-color: hsl(hue, saturation, 100%);
 			--secondary-text-color: hsl(hue, saturation, 75%);
-		} else if theme == amoled {
-			--background-color: black;
-			--navigation-color: hsl(hue, saturation, 2%);
+		/* Old Default Dark */
+		} else if theme == oldDark {
+			--background-color: hsl(hue, saturation, 15%);
+			--navigation-color: hsl(hue, saturation, 10%);
 			--header-color: var(--navigation-color);
-			--content-color: hsl(hue, saturation, 14%);
-			--secondary-content-color: hsl(hue, saturation, 6%);
-			--input-color: hsl(hue, saturation, 2%);
-			--input-border-color: hsl(hue, saturation, 17%);
-			--thumbnail-color: hsl(hue, saturation, 12%);
+			--content-color: hsl(hue, saturation, 23%);
+			--secondary-content-color: hsl(hue, saturation, 12%);
+			--input-color: hsl(hue, saturation, 4%);
+			--input-border-color: hsl(hue, saturation, 21%);
+			--thumbnail-color: hsl(hue, saturation, 30%);
 			--item-thumbnail-color: var(--thumbnail-color);
-			--highlight-color: hsl(hue, saturation, 25%);
-			--highlighter-color: hsl(hue, saturation, 34%);
+			--highlight-color: hsl(hue, saturation, 45%);
+			--highlighter-color: hsl(hue, saturation, 55%);
 			--primary-text-color: hsl(hue, saturation, 100%);
-			--secondary-text-color: hsl(hue, saturation, 65%);
-		} else if theme == robloxDark {
+			--secondary-text-color: hsl(hue, saturation, 75%);
+		/* Roblox Dark (Pre-2025) */
+		} else if theme == oldRobloxDark {
 			--background-color: #232527;
 			--navigation-color: #191b1d;
 			--header-color: var(--navigation-color);
@@ -99,7 +179,8 @@
 			--highlighter-color: #989898;
 			--primary-text-color: #fff;
 			--secondary-text-color: #bdbebe;
-		} else if theme == robloxLight {
+		/* Roblox Light (Pre-2025) */
+		} else if theme == oldRobloxLight {
 			--background-color: #f2f4f5;
 			--navigation-color: #dee1e3;
 			--header-color: var(--navigation-color);
@@ -125,7 +206,8 @@
 
 	if theme != off {
 		html,
-		.scroller {
+		.scroller,
+		.scroller .spacer {
 			background-color: var(--background-color) !important;
 			color: var(--primary-text-color) !important
 		}
@@ -136,7 +218,6 @@
 		.container-footer,
 		.warp,
 		.table,
-		.scroller .spacer,
 		.avatar-back .thumbnail-2d-container,
 		.item-details-thumbnail-container .thumbnail-2d-container,
 		.groups-list .group-cards .list-item .group-card .group-card-thumbnail .thumbnail-2d-container,
@@ -169,7 +250,8 @@
 		.tooltip .tooltip-inner,
 		.notification-stream-header,
 		.payment-method-label-clickable .payment-method-label:hover
-		.group-open {
+		.group-open,
+		.MuiPaper-root.MuiMenu-paper {
 			background-color: var(--navigation-color) !important;
 		}
 
@@ -178,19 +260,38 @@
 		}	
 
 		.dialog-message {
-			background-color: var(--navigation-color) !important;
-			border-color: var(--navigation-color) !important;
+			background-color: var(--background-color) !important;
+			border-color: var(--background-color) !important;
 		}
 
-		.dialog-message-container.message-inbound .dialog-triangle::after {
-			border-color: transparent var(--navigation-color) transparent transparent !important;
+		.dialog-triangle::after {
+			border-color: transparent var(--background-color) transparent transparent !important;
 		}
 
 		.link-card-container.dialog-triangle,
-		.dialog-message-container.message-cluster-master .dialog-triangle.message-is-sending,
-		.dialog-message-container.message-cluster-master .dialog-triangle {
+		.dialog-triangle.message-is-sending,
+		.dialog-triangle {
 			&::before, &::after {
-				border-color: transparent transparent transparent var(--navigation-color) !important;
+				border-color: transparent transparent transparent var(--background-color) !important;
+			}
+		}
+
+		.dialog-message-container.message-inbound {
+			& .dialog-message {
+				background-color: var(--navigation-color) !important;
+				border-color: var(--navigation-color) !important;
+			}
+
+			& .dialog-triangle::after {
+				border-color: transparent var(--navigation-color) transparent transparent !important;
+			}
+
+			& .link-card-container.dialog-triangle,
+			& .dialog-triangle.message-is-sending,
+			& .dialog-triangle {
+				&::before, &::after {
+					border-color: transparent transparent transparent var(--navigation-color) !important;
+				}
 			}
 		}
 
@@ -226,6 +327,9 @@
 		.payment-method-label-clickable .payment-method-label
 		#robux-upsell-react-page-wrapper .robux-upsell-container-1 .robux-upsell-item-and-packages-container,
 		.friend-tile-dropdown,
+		#profile-statistics-container > .MuiPaper-root,
+		.group-section-content,
+		.group-details .group-wall .comment,
 		.menu-option .menu-secondary {
 			background-color: var(--content-color) !important;
 		}
@@ -299,12 +403,18 @@
 		.dialog-message,
 		.account-username,
 		.meta-actions-list-base .meta-actions-overlay,
-		.payment-method-label-clickable .payment-method-label:hover {
+		.payment-method-label-clickable .payment-method-label:hover,
+		.chat-friend-list .chat-friend-container .chat-friend-info .unread,
+		.popover-content .dropdown-menu li:hover a,
+		.popover-content .dropdown-menu li:hover button,
+		.MuiTypography-root,
+		.group-details .group-wall .comment .group-comments-container,
+		.catalog-revamp .filters-modal-container .filter-options-container .filter-option.selected-option {
 			color: var(--primary-text-color) !important;
 		}
 
 		.voting-panel .users-vote .vote-details .vote-container .vote-percentage,
-		.topic-container .topic-carousel .selected-topic:hover {
+		.icon-radio-check-circle-filled {
 			background-color: var(--primary-text-color) !important;
 		}
 
@@ -317,7 +427,8 @@
 		.text-info,
 		.text-secondary,
 		.text-muted,
-		.text-subheader
+		.text-subheader,
+		.content-default,
 		.breadcrumb-container,
 		.game-card-info .info-label,
 		.input-group .input-field::placeholder,
@@ -350,12 +461,33 @@
 		.modal-dialog .modal-content .modal-body,
 		.payment-method-label-clickable .payment-method-label,
 		.first-time-redemption-disclosure,
-		.menu-option .menu-secondary-option {
+		.menu-option .menu-secondary-option,
+		.low-cogs-container .robux-cell-high-cogs-amount .high-cogs-robux-amount,
+		.btr-friends-carousel-username,
+		.friends-carousel-tile-experience,
+		.chat-friend-list .chat-friend-container .chat-friend-info .read,
+		.friend-tile-dropdown-button,
+		.popover-content .dropdown-menu li a,
+		.popover-content .dropdown-menu li button,
+		.MuiTypography-root > [class*="Typography-colorSecondary"],
+		.MuiList-root > [class*="MenuItem"],
+		.MuiOutlinedInput-notchedOutline,
+		.group-details .group-shout .shout-container .group-shout .group-shout-body,
+		.content-muted {
 			color: var(--secondary-text-color) !important;
 		}
 
+		.topic-container .topic-carousel .unselected-topic {
+			background-color: var(--content-color) !important;
+			color: var(--text-color) !important;
+		}
+
 		.topic-container .topic-carousel .selected-topic {
-			background-color: var(--secondary-text-color) !important;
+			background-color: var(--primary-text-color) !important;
+			color: var(--content-color) !important;
+			&:hover {
+				background-color: var(--secondary-text-color) !important;
+			}
 		}
 
 		.border {
@@ -374,7 +506,8 @@
 
 		.border-bottom, .border-left, .border-right, .border-top,
 		.modal-dialog .modal-content .modal-header,
-		.premium-container .robux-table .robux-cell {
+		.premium-container .robux-table .robux-cell,
+		.store-card {
 			border-color: var(--highlight-color) !important;
 		}
 
@@ -392,12 +525,23 @@
 			border-color: var(--highlight-color) !important;
 		}
 
+		.catalog-revamp .filters-modal-container {
+			background-color: var(--content-color) !important;
+			border-color: var(--highlight-color) !important;
+		}
+
+		.catalog-revamp .filters-modal-container .filter-options-container {
+			background-color: var(--content-color) !important;
+			color: var(--secondary-text-color) !important;
+		}
+
 		.rbx-header .navbar-search,
 		.friends-filter .friends-filter-searchbar-container .friends-filter-searchbar-input,
 		.input-field:not(.rbx-select),
 		#code-input,
 		.dialog-container .dialog-input-container,
-		.dialog-container .dialog-input-container .dialog-input {
+		.dialog-container .dialog-input-container .dialog-input,
+		.MuiInputBase-input {
 			background-color: var(--input-color) !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--input-border-color) !important;
@@ -422,7 +566,7 @@
 		.menu-option .menu-secondary-option:focus,
 		.menu-option .menu-secondary-option:active,
 		.menu-option .menu-secondary-option.active {
-			background-color: (isLight ? var(--secondary-content-color) : var(--highlight-color)) !important;
+			background-color: (isLight ? var(--secondary-content-color) : var(--highlighter-color)) !important;
 		}
 
 		.input-group-btn .input-dropdown-btn,
@@ -458,7 +602,9 @@
 		#rbx-current-page input,
 		.btr-pager-holder input.btr-pager-cur,
 		.notification-stream-body,
-		.notification-stream-loading {
+		.notification-stream-loading,
+		#catalog-react-page .search-bars,
+		.catalog-container .sticky .catalog-header {
 			background-color: var(--background-color) !important;
 		}
 
@@ -486,7 +632,10 @@
 		.btn-secondary-lg,
 		.btn-secondary-md,
 		.btn-secondary-sm,
-		.btn-secondary-xs {
+		.btn-secondary-xs,
+		.btn-friends .btn-control-md,
+		.game-server-details .btn-control-xs,
+		.rbx-private-running-games-footer .btn-control-md {
 			background-color: transparent !important;
 			color: var(--secondary-text-color) !important;
 			border-color: var(--highlighter-color) !important;
@@ -513,8 +662,7 @@
 		.avatar .avatar-card-image,
 		.avatar-container .avatar-card-image,
 		.avatar-container img,
-		.modal-thumb,
-		.topic-container .topic-carousel .unselected-topic {
+		.modal-thumb {
 			background-color: var(--thumbnail-color) !important;
 			border-color: var(--thumbnail-color) !important;
 		}
@@ -553,6 +701,7 @@
 		.btn-primary-md:not(
 			button.game-server-join-btn,
 			.play-button,
+			.apply-button,
 			.btn-secondary-md,
 			.btn-common-play-game-lg,
 			.btn-growth-md,
@@ -565,6 +714,43 @@
 			background-color: var(--primary-text-color) !important;
 			border-color: var(--primary-text-color) !important;
 			color: var(--background-color) !important;
+		}
+
+		.MuiButton-root {
+			color: var(--primary-text-color) !important;
+		}
+
+		.MuiButton-root:not([class*="Button-contained"]) {
+			background-color: var(--secondary-content-color) !important;
+			&:hover {
+				background-color: var(--content-color) !important;
+			}
+		}
+
+		.MuiButton-root[class*="Button-contained"]:not([class*="Primary"]) {
+			background-color: var(--content-color) !important;
+			&:hover {
+				background-color: var(--highlight-color) !important;
+			}
+		}
+
+		.MuiButton-root[class*="Primary"] {
+			color: (isLight ? var(--background-color) : var(--primary-text-color)) !important;
+		}
+
+		.MuiButtonBase-root.MuiMenuItem-root {
+			&:hover, &:focus-visible {
+				background-color: var(--content-color) !important;
+			}
+		}
+
+		.MuiButtonBase-root[aria-label="More"] {
+			color: var(--secondary-text-color) !important;
+			background-color: transparent !important;
+			&:hover, &:focus-visible {
+				color: var(--primary-text-color) !important;
+				background-color: var(--content-color) !important;
+			}
 		}
 
 		.rbx-tabs-horizontal .rbx-tab:hover .rbx-tab-heading,
@@ -624,9 +810,6 @@
 			border-color: transparent !important;
 		}
 
-		.store-card {
-			border-color: var(--highlight-color);
-		}
 
 		.clearfix.horizontal-scroll-window {
 			margin-right: -30px;
@@ -743,6 +926,13 @@
 		}
 	}
 
+	if !basicAnimations {
+		.MuiButtonBase-root[class*="Typography-button"],
+		.MuiButtonBase-root[aria-label="More"] {
+			transition: none !important;
+		}
+	}
+
 	if moreAnimations {
 		$navbar-offset = (navFloat ? 4px : 0px)
 
@@ -844,14 +1034,14 @@
 		outlinedAnimation = (popoutAnimation == outlined)
 
 		.item-card-container,
-		.game-card-container {
+		.game-card-container:not(.group-card-name-container) {
 			background-color: transparent !important;
 			box-shadow: 0px 0px 2px 0px transparent !important;
 			transform: scale(100%) !important;
 			transition: background-color .3s ease, transform .5s ease, box-shadow 0.2s ease !important;
 			border-radius: 8px !important;
 			height: auto !important;
-			overflow: hidden;
+			overflow: visible;
 			&:hover {
 				background-color: hsla(hue, saturation, 2%, isLight ? 20% : 40%) !important;
 				box-shadow: (outlinedAnimation ? 0px 0px 0px 4px var(--primary-text-color) : 0px 0px 2px 0px transparent) !important;
@@ -862,7 +1052,7 @@
 			}
 		}
 
-		.game-carousel {
+		.game-carousel, .item-cards-stackable {
 			overflow: visible !important;
 		}
 
@@ -896,6 +1086,14 @@
 		.play-button-container .shimmer {
 			display: none !important;
 		}
+
+		.catalog-revamp .catalog-item-container {
+			overflow: visible !important;
+		}
+
+		#catalog-react-container .catalog-revamp .catalog-item-container img {
+			transform: none !important;
+		}
 	}
 
 	if featuredVignette {
@@ -915,8 +1113,12 @@
 		}
 
 		.featured-game-container:hover .featured-game-icon-container::before,
-		.game-card-container:hover .game-card-thumb-container::before {
+		.game-card-container:not(.group-card-name-container):hover .game-card-thumb-container::before {
 			opacity: 1 !important;
+		}
+
+		.hover-game-tile.grid-tile {
+			border-radius: 0 !important;
 		}
 	}
 
@@ -989,13 +1191,13 @@
 			display: none;
 		}
 
-		.hover-game-tile.grid-tile {
-			border-radius: 0 !important;
-		}
-
 		/* Profile */
 		.touch .profile-accountrements-page-container {
 			display: block;
+		}
+
+		#profile-statistics-container > .MuiPaper-root > .profile-stats {
+			padding: 6px 0 6px 0 !important;
 		}
 
 		/* Catalog */
@@ -1008,7 +1210,7 @@
 			padding: 5px 10px 0 10px;
 		}
 		
-		.simplebar-mask {
+		#navigation > .simplebar-mask {
 			margin: -6px 0px 0px -2px !important;
 		}
 
@@ -1047,18 +1249,31 @@
 		}
 
 		/* Misc */
-		.game-card-container .game-card-name,
-		.game-card-container .game-card-info,
-		.game-card-container .game-card-name-secondary {
-			margin-left: 2px !important;
-		}
-
 		.game-card-thumb-container::before {
 			z-index: 1;
 		}
 
 		.remove-panel:not(.section-content) {
 			margin-bottom: 4px;
+		}
+
+		.MuiButtonBase-root.MuiMenuItem-root {
+			font-weight: 400;
+		}
+	}
+
+	if catalogimprovements {
+		/* Smaller Items */
+		.catalog-revamp .results-container .organic-items-wrapper {
+			grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)) !important;
+		}
+
+		/* Put Price on bottom right (I think it looks better) */
+		.catalog-revamp .catalog-item-container .thumbnail-price {
+			top: unset !important;
+			left: unset !important;
+			bottom: 8px !important;
+			right: 8px !important;
 		}
 	}
 
@@ -1202,6 +1417,11 @@
 		.game-main-content .game-calls-to-action {
 			z-index: 6;
 		}
+
+		/* Fast Search Avatar should keep it's width and height */
+		.btr-fastsearch-avatar {
+			flex: none !important;
+		}
 	}
 
 	/* RoSeal */
@@ -1211,21 +1431,20 @@
 			margin-top: 4px;
 		}
 
-		.new-badges-list .new-badges-list-container .badge-container.unobtained .badge-image-container {
-			filter: grayscale(0.75);
-			opacity: .25;
-		}
-
-		/* Accounts Manager */
-		.accounts-popover .popover-content {
-			right: -20px !important;
+		.new-badges-list .new-badges-list-container .badge-container.unobtained .badge-image-container,
+		.roseal-badges .new-badges-list .badge-container.is-unobtained .badge-info-container,
+		.roseal-badges .new-badges-list .badge-container.is-unobtained .badge-image-container,
+		.roseal-badges .new-badges-list .badge-container.is-unobtained .badge-awarded-stats {
+			filter: grayscale(0.75) !important;
+			opacity: .35 !important;
 		}
 	}
 
 	/* RoSeal Recolor */
 	if theme != off {
 		/* Menus */
-		.roseal-menu-secondary-container {
+		.roseal-menu-secondary-container,
+		.dnd-groups-list-container .dnd-groups-list .folder-groups-container {
 			background-color: var(--secondary-content-color) !important
 		}
 
