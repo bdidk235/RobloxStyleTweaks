@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Style Tweaks
-@version        0.7.2
+@version        0.7.3
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -1136,7 +1136,6 @@
 
 	if popoutAnimation != off || featuredVignette {
 		.hover-game-tile {
-			width: auto !important;
 			margin: 0px !important;
 			padding: 0px !important;
 		}
