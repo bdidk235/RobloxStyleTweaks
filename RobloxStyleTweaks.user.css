@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Style Tweaks
-@version        0.6.0
+@version        0.7.0
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -32,7 +32,9 @@
 
 @var checkbox featuredVignette "Vignette on Featured Games" 1
 @var checkbox improvements "Various Improvements" 1
-@var checkbox catalogimprovements "New Marketplace Improvements" 1
+@var checkbox sidebarImprovements "Sidebar Improvements" 1
+@var select sidebarSize "Sidebar Size" ["default:Default", "smaller:Smaller", "icons:Icons"]
+@var checkbox catalogImprovements "New Marketplace Improvements" 1
 @var checkbox footerLinks "Remove Footer Links" 1
 ==/UserStyle== */
 
@@ -199,15 +201,21 @@
 		if theme != off {
 			/*--header-color: hsl(200, 65%, 45%);*/
 
-			--text-color: var(--primary-text-color);
-			--secondary-color: var(--secondary-text-color);
+			--text-color: var(--primary-text-color) !important;
+			--secondary-color: var(--secondary-text-color) !important;
+
+			--color-surface-100: var(--background-color) !important;
+			--color-surface-300: var(--content-color) !important;
+			--RS_BACKGROUND-4-COLOR: var(--content-color) !important;
+			--RS_LINE-COLOR: var(--secondary-content-color) !important;
 		}
 	}
 
 	if theme != off {
 		html,
 		.scroller,
-		.scroller .spacer {
+		.scroller .spacer,
+		.bg-surface-0 {
 			background-color: var(--background-color) !important;
 			color: var(--primary-text-color) !important
 		}
@@ -409,7 +417,8 @@
 		.popover-content .dropdown-menu li:hover button,
 		.MuiTypography-root,
 		.group-details .group-wall .comment .group-comments-container,
-		.catalog-revamp .filters-modal-container .filter-options-container .filter-option.selected-option {
+		.catalog-revamp .filters-modal-container .filter-options-container .filter-option.selected-option,
+		.content-emphasis {
 			color: var(--primary-text-color) !important;
 		}
 
@@ -473,7 +482,8 @@
 		.MuiList-root > [class*="MenuItem"],
 		.MuiOutlinedInput-notchedOutline,
 		.group-details .group-shout .shout-container .group-shout .group-shout-body,
-		.content-muted {
+		.content-muted,
+		.friends-carousel-user-name {
 			color: var(--secondary-text-color) !important;
 		}
 
@@ -543,7 +553,7 @@
 		.dialog-container .dialog-input-container .dialog-input,
 		.MuiInputBase-input {
 			background-color: var(--input-color) !important;
-			color: var(--secondary-text-color) !important;
+			color: var(--text-color) !important;
 			border-color: var(--input-border-color) !important;
 			&:focus {
 				border-color: var(--highlight-color) !important;
@@ -595,7 +605,7 @@
 			background-color: (isLight ? var(--content-color) : var(--primary-text-color)) !important;
 		}
 
-		.enable-three-dee,
+		.three-dee,
 		.avatar-thumbnail .toggle-three-dee,
 		.btr-toggle-items,
 		html body .btr-thumb-btn-container .btr-thumb-btn,
@@ -604,7 +614,8 @@
 		.notification-stream-body,
 		.notification-stream-loading,
 		#catalog-react-page .search-bars,
-		.catalog-container .sticky .catalog-header {
+		.catalog-container .sticky .catalog-header,
+		.toggle-thumbnail-type-btn {
 			background-color: var(--background-color) !important;
 		}
 
@@ -831,6 +842,10 @@
 			&.interactable {
 				background-color: var(--highlight-color) !important;
 			}
+		}
+
+		.cover-gradient-overlay {
+			background: var(--background-color) !important;
 		}
 
 		/* Notifications */
@@ -1262,7 +1277,62 @@
 		}
 	}
 
-	if catalogimprovements {
+	if sidebarImprovements {
+		/* RoSeal Events */
+		.left-nav .flex-col, .roseal-events-nav {
+			padding-left: 5px !important;
+			padding-right: 5px !important;
+		}
+
+		.roseal-events-nav .event-list .event-container {
+			aspect-ratio: calc(16 / 9) !important;
+			& span {
+				height: inherit !important;
+			}
+		}
+	}
+
+	if sidebarSize == smaller {
+		.left-nav-new-width {
+			--left-nav-reserved-width: 200px !important;
+		}
+	} else if sidebarSize == icons {
+		.left-nav nav > ul > li > * {
+			padding-left: 2px !important;
+			padding-right: 2px !important;
+		}
+
+		.left-nav-new-width {
+			--left-nav-reserved-width: 60px !important;
+		}
+
+		.left-nav .flex-col {
+			padding: 4px !important;
+		}
+
+		.roseal-events-nav {
+			display: none;
+		}
+	}
+
+	if sidebarImprovements || sidebarSize != default {
+		/* Navigation Width */
+		.left-nav {
+			width: var(--left-nav-reserved-width) !important;
+		}
+		.left-nav .height-full {
+			width: var(--left-nav-reserved-width) !important;
+		}
+		.left-nav .height-full > div {
+			overflow-y: overlay;
+			width: inherit;
+		}
+		.left-nav .height-full > div > div > div > nav {
+			width: calc(var(--left-nav-reserved-width) - 8px) !important;
+		}
+	}
+
+	if catalogImprovements {
 		/* Smaller Items */
 		.catalog-revamp .results-container .organic-items-wrapper {
 			grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)) !important;
