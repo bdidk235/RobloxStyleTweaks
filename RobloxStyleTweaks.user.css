@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           Roblox Style Tweaks
-@version        0.7.0
+@version        0.7.1
 @namespace      https://userstyles.world/user/bdidk235
 @description    Customize Roblox without it feeling like a whole new design.
 @author         bdidk235
@@ -28,7 +28,6 @@
 @var checkbox basicAnimations "Basic Animations" 0
 @var checkbox moreAnimations "More Animations" 0
 @var select popoutAnimation "Popout Animation" ["off:Off", "basic:Basic", "outlined:Outlined"]
-@var checkbox navFloat "Floating Navigation" 0
 
 @var checkbox featuredVignette "Vignette on Featured Games" 1
 @var checkbox improvements "Various Improvements" 1
@@ -949,15 +948,13 @@
 	}
 
 	if moreAnimations {
-		$navbar-offset = (navFloat ? 4px : 0px)
-
 		@keyframes navbarSlideIn {
 			from {
-				transform: translateX(-100% + $navbar-offset) translateY($navbar-offset);
+				transform: translateX(-100%) translateY(0px);
 			}
 
 			to {
-				transform: translateX($navbar-offset) translateY($navbar-offset);
+				transform: translateX(0px) translateY(0px);
 			}
 		}
 
@@ -1146,17 +1143,6 @@
 
 		.hover-game-tile, .featured-game-container {
 			background-color: transparent !important;
-		}
-	}
-	
-	if navFloat {
-		#navigation {
-			height: fit-content;
-			transform: translateX(4px) translateY(4px);
-		}
-
-		.rbx-scrollbar > .simplebar-track {
-			visibility: hidden !important;
 		}
 	}
 
